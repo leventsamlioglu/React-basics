@@ -5,8 +5,10 @@ import Card from "../UI/Card";
 import "./ExpenseItem.css";
 
 function ExpenseItem(props) {
+  // function clickHandler() {}
   const [title, setTitle] = useState(props.title);
-  console.log("ExpenseItem eveluated by React!");
+  console.log("ExpenseItem evaluated by React");
+
   function clickHandler() {
     setTitle("Updated!");
     console.log(title);
@@ -18,8 +20,8 @@ function ExpenseItem(props) {
       <div className='expense-item__description'>
         <h2>{title}</h2>
         <div className='expense-item__price'>${props.amount}</div>
-        <button onClick={clickHandler}>Change Title</button>
       </div>
+      <button onClick={clickHandler}>Change Title</button>
     </Card>
   );
 }
