@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import ExpenseDate from "./ExpenseDate";
-import Card from "../UI/Card";
-import "./ExpenseItem.css";
+import ExpenseDate from './ExpenseDate';
+import Card from '../UI/Card';
+import './ExpenseItem.css';
 
-function ExpenseItem(props) {
+const ExpenseItem = (props) => {
   // function clickHandler() {}
   const [title, setTitle] = useState(props.title);
-  console.log("ExpenseItem evaluated by React");
-
-  function clickHandler() {
-    setTitle("Updated!");
+  console.log('ExpenseItem evaluated by React');
+  
+  const clickHandler = () => {
+    setTitle('Updated!');
     console.log(title);
-  }
+  };
 
   return (
     <Card className='expense-item'>
