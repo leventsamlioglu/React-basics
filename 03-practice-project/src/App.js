@@ -1,7 +1,7 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment } from "react";
 
-import AddUser from './components/Users/AddUser';
-import UsersList from './components/Users/UsersList';
+import AddUser from "./components/Users/AddUser";
+import UsersList from "./components/Users/UsersList";
 
 function App() {
   const [usersList, setUsersList] = useState([]);
@@ -15,10 +15,17 @@ function App() {
     });
   };
 
+  const deleteItemHandler = (goalId) => {
+    setUsersList((prevUsersList) => {
+      const newList = prevUsersList.filter((user) => user.id !== goalId);
+      return newList;
+    });
+  };
+
   return (
     <Fragment>
       <AddUser onAddUser={addUserHandler} />
-      <UsersList users={usersList} />
+      <UsersList users={usersList} onDelete={deleteItemHandler} />
     </Fragment>
   );
 }
