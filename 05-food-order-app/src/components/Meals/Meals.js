@@ -1,5 +1,5 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
+
 import MealsSummary from "./MealsSummary";
 import AvailableMeals from "./AvailableMeals";
 
