@@ -6,6 +6,8 @@ import Card from "../UI/Card";
 import MealItem from "./MealItem/MealItem";
 import classes from "./AvailableMeals.module.css";
 
+const url = "https://react-app-91b20-default-rtdb.firebaseio.com/meals.json";
+
 const override = css`
   display: block;
   margin: 0 auto;
@@ -15,27 +17,37 @@ const override = css`
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
 
   useEffect(() => {
-    const fetchedMeals = async () => {
-      const response = await fetch(
-        "https://react-app-91b20-default-rtdb.firebaseio.com/meals.json"
-      );
-      const data = await response.json();
+    const fetchMeals = async () => {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
+
+      const responseData = await response.json();
+
       const loadedMeals = [];
 
-      for (const key in data) {
+      for (const key in responseData) {
         loadedMeals.push({
           id: key,
-          name: data[key].name,
-          description: data[key].description,
-          price: data[key].price,
+          name: responseData[key].name,
+          description: responseData[key].description,
+          price: responseData[key].price,
         });
       }
+
       setMeals(loadedMeals);
       setIsLoading(false);
     };
-    fetchedMeals();
+
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
   }, []);
 
   if (isLoading) {
@@ -46,6 +58,14 @@ const AvailableMeals = () => {
         css={override}
         size={150}
       />
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className={classes.MealsError}>
+        <p>{httpError}</p>
+      </section>
     );
   }
 
